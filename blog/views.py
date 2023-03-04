@@ -29,3 +29,12 @@ def about(request):
 # Post Details View
 class PostDetailView(DetailView):
     model = Post
+
+# Post Create View
+class PostCreateView(CreateView):
+    model = Post
+    fields = ["title", "content"]
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
